@@ -1,0 +1,284 @@
+/* --- CSS Variables & Reset --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+:root {
+    --bg-color: #0b0b0b;
+    --card-bg: #141414;
+    --text-main: #e5e5e5;
+    --text-muted: #888;
+    --accent-gold: #d4af37;
+    --gap-size: 2.5rem; /* Increased gap for better spacing */
+    --radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+/* --- Navigation --- */
+.back-nav {
+    padding: 2rem 5%;
+}
+
+.back-nav a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-nav a:hover {
+    color: var(--accent-gold);
+    transform: translateX(-5px);
+}
+
+/* --- Header --- */
+.project-header {
+    padding: 2rem 15% 4rem 15%; /* Adjusted padding for better alignment with grid */
+    max-width: 100%; /* Allow full width */
+    margin: 0 auto;
+    animation: fadeInDown 0.8s ease-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 4rem;
+    text-align: left; /* Left align text */
+}
+
+.header-content {
+    flex: 1;
+    max-width: 800px;
+}
+
+.project-header h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+}
+
+.project-header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.8;
+}
+
+.project-header .btn-primary {
+    /* Re-using btn-primary styles but ensuring specific fit here */
+    padding: 14px 28px;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent button text wrapping */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px; /* Visual balance with title */
+}
+
+.project-header .btn-primary:hover {
+    background: #d4af37;
+    color: #0b0b0b;
+}
+
+/* Responsive Header */
+@media (max-width: 900px) {
+    .project-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 2rem 5%;
+    }
+    
+    .project-header .btn-primary {
+        margin-top: 0;
+    }
+}
+
+/* --- Masonry Layout (CSS Grid Mosaic) --- */
+.masonry-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
+    grid-auto-rows: 400px; 
+    grid-auto-flow: dense; 
+    gap: var(--gap-size);
+    width: 70%; /* Constrain to 70% of viewport */
+    padding: 0 0 4rem 0; 
+    margin: 0 auto;
+}
+
+.masonry-item {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    padding: 0; /* Removed padding */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 0.3s ease, opacity 0.6s ease;
+    border: none; /* Removed border */
+}
+
+/* Size Modifiers */
+.masonry-item.wide {
+    grid-column: span 2;
+}
+
+.masonry-item.tall {
+    grid-row: span 2;
+}
+
+.masonry-item.big {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.masonry-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Critical for grid cells */
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* Hover Effects */
+.masonry-item:hover img {
+    transform: scale(1.05);
+}
+
+/* --- Lightbox --- */
+#lightbox {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 11, 11, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 4px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#lightbox.active img {
+    transform: scale(1);
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    transition: color 0.3s;
+}
+
+.close-lightbox:hover {
+    color: var(--accent-gold);
+}
+
+/* --- Footer --- */
+.project-footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid #1a1a1a;
+    margin-top: 2rem;
+}
+
+/* --- Animations --- */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 1200px) {
+    .masonry-container {
+        width: 85%; /* Slightly wider on laptops */
+    }
+}
+
+@media (max-width: 900px) {
+    :root {
+        --gap-size: 1.5rem; /* Smaller gap on tablets */
+    }
+    .masonry-container {
+        width: 95%; /* Almost full width on tablets */
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-auto-rows: 300px;
+    }
+    .project-header h1 {
+        font-size: 2.5rem;
+    }
+    /* Reset spans for smaller screens if they cause overflow */
+    .masonry-item.wide,
+    .masonry-item.tall,
+    .masonry-item.big {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --gap-size: 1rem; /* Compact gap on mobile */
+    }
+    .masonry-container {
+        grid-template-columns: 1fr; /* Single column layout */
+        grid-auto-rows: 250px;
+    }
+    /* Ensure items don't try to span on a single column layout */
+    .masonry-item.wide,
+    .masonry-item.tall,
+    .masonry-item.big {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}

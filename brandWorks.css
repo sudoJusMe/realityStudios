@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0b0b0b;
+    color: #e5e5e5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 2rem 5%;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #d4af37; /* Gold accent */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+main {
+    flex: 1;
+    padding: 2rem 5%;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.video-item {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16; /* Reel format */
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+.video-item:hover {
+    transform: translateY(-5px);
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* or contain, depending on if we want uniform boxes */
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .video-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+}
